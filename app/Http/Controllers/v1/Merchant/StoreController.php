@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\v1\Admin;
+namespace App\Http\Controllers\v1\Merchant;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,17 +9,6 @@ use App\Http\Requests\StoreRequest;
 
 class StoreController extends Controller
 {
-    public function index()
-    {
-        $stores = Store::with('user:id,name,email')->get();
-        return response()->json([
-            'status' => 'ok',
-            'code' => 200,
-            'message' => 'Successfully get all stores',
-            'data' => $stores
-        ], 200);
-    }
-
     public function getMyStore() 
     {
         $userId = auth()->user()->id;
@@ -59,11 +48,19 @@ class StoreController extends Controller
     {
         try {
             $store = Store::with('user:id,name,email')->findOrFail($id);
+            if($store->user_id != auth()->user()->id){
+                return response()->json([
+                    'status' => 'error',
+                    'code' => 401,
+                    'message' => 'Sorry! You are unauthorized to make this request',
+                    'data' => []
+                ]);
+            }
         }
         catch (Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'code' => 400,
+                'code' => 404,
                 'message' => 'Failed to find store',
                 'data' => []
             ], 400);
@@ -79,9 +76,19 @@ class StoreController extends Controller
     public function update(StoreRequest $request, $id)
     {
         $data = $request->validated();
+
         try {
             $store = Store::with('user:id,name,email')->findOrFail($id);
-            $store->update($data);
+            if($store->user_id != auth()->user()->id){
+                return response()->json([
+                    'status' => 'error',
+                    'code' => 401,
+                    'message' => 'Sorry! You are unauthorized to make this request',
+                    'data' => []
+                ]);
+            } else {
+                $store->update($data);
+            }
         }
         catch (Exception $e) {
             return response()->json([
@@ -89,7 +96,7 @@ class StoreController extends Controller
                 'code' => 400,
                 'message' => 'Failed to update store',
                 'data' => []
-            ], 400);
+            ], 404);
         }
         return response()->json([
             'status' => 'ok',
@@ -103,7 +110,16 @@ class StoreController extends Controller
     {
         try {
             $store = Store::findOrFail($id);
-            $store->delete();
+            if($store->user_id != auth()->user()->id){
+                return response()->json([
+                    'status' => 'error',
+                    'code' => 401,
+                    'message' => 'Sorry! You are unauthorized to make this request',
+                    'data' => []
+                ]);
+            } else {
+                $store->delete();
+            }
         }
         catch (Exception $e) {
             return response()->json([
@@ -111,7 +127,7 @@ class StoreController extends Controller
                 'code' => 400,
                 'message' => 'Failed to delete store',
                 'data' => []
-            ], 400);
+            ], 404);
         }
         return response()->json([
             'status' => 'ok',

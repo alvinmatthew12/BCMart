@@ -29,4 +29,8 @@ Route::group(['namespace' => 'v1', 'prefix' => 'v1'], function(){
         Route::resource('store', 'StoreController')->except(['create', 'edit']);
     });
 
+    Route::group(['namespace' => 'Merchant', 'prefix' => 'merchant', 'middleware' => ['auth:api', 'isMerchant']], function () { 
+        Route::resource('store', 'StoreController')->except(['index', 'create', 'edit']);
+        Route::get('store', 'StoreController@getMyStore');
+    });
 });
