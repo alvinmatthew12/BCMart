@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
@@ -37,6 +38,29 @@ class AuthController extends Controller
             'message' => 'Sucessfully login to the system',
             'data' => $data
         ], 200);
+    }
+
+    public function register(RegisterRequest $request) {
+        $data = $request->validated();
+        try {
+            $data['password'] = bcrypt($data['password']);
+            $register = User::create($data);
+        }
+        catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'Failed to register',
+                'data' => []
+            ], 400);
+        }
+        return response()->json([
+            'status' => 'ok',
+            'code' => 200,
+            'message' => 'Successfully register',
+            'data' => $register
+        ], 200);
+
     }
 
     public function logout() {
