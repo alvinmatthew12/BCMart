@@ -27,12 +27,17 @@ Route::group(['namespace' => 'v1', 'prefix' => 'v1'], function(){
 
     Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth:api', 'isAdmin']], function () { 
         Route::resource('store', 'StoreController')->except(['create', 'edit']);
+
         Route::resource('product', 'ProductController')->except(['create', 'edit']);
         Route::put('product/updateBarcode/{id}', 'ProductController@updateBarcode');
     });
 
     Route::group(['namespace' => 'Merchant', 'prefix' => 'merchant', 'middleware' => ['auth:api', 'isMerchant']], function () { 
         Route::resource('store', 'StoreController')->except(['index', 'create', 'edit']);
-        Route::get('store', 'StoreController@getMyStore');
+        Route::get('store', 'StoreController@getStores');
+
+        Route::resource('product', 'ProductController')->except(['index','create', 'edit']);
+        Route::post('product/search', 'ProductController@getProducts');
+        Route::put('product/updateBarcode/{id}', 'ProductController@updateBarcode');
     });
 });
