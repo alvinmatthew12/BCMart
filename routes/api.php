@@ -41,6 +41,9 @@ Route::group(['namespace' => 'v1', 'prefix' => 'v1'], function(){
         Route::resource('product', 'ProductController')->except(['index','create', 'edit']);
         Route::post('product/search', 'ProductController@getProducts');
         Route::put('product/updateBarcode/{id}', 'ProductController@updateBarcode');
+
+        Route::get('checkout/report/{id}', 'CheckoutController@getCheckoutReport');
+        Route::get('checkout/{id}', 'CheckoutController@show');
     });
 
     Route::group(['namespace' => 'Member', 'prefix' => 'member', 'middleware' => ['auth:api']], function () { 
