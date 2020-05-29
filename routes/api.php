@@ -47,5 +47,7 @@ Route::group(['namespace' => 'v1', 'prefix' => 'v1'], function(){
         Route::get('wallet', 'WalletController@index');
         Route::get('wallet/topup', 'WalletController@getTopUps');
         Route::post('wallet/topup', 'WalletController@topUp');
+
+        Route::resource('cart', 'CartController')->except(['show', 'create', 'edit']);
     });
 });

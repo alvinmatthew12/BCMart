@@ -11,7 +11,7 @@ class Cart extends Model
     ];
 
     protected $hidden = [
-        'updated_at'
+        'is_checkedout','updated_at'
     ];
 
     public function product() {
