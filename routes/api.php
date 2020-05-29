@@ -40,4 +40,8 @@ Route::group(['namespace' => 'v1', 'prefix' => 'v1'], function(){
         Route::post('product/search', 'ProductController@getProducts');
         Route::put('product/updateBarcode/{id}', 'ProductController@updateBarcode');
     });
+
+    Route::group(['namespace' => 'Member', 'prefix' => 'member', 'middleware' => ['auth:api']], function () { 
+        Route::get('wallet', 'WalletController@index');
+    });
 });
