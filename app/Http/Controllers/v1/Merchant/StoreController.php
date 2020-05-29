@@ -10,7 +10,7 @@ use Exception;
 
 class StoreController extends Controller
 {
-    public function getMyStore() 
+    public function getStores() 
     {
         $userId = auth()->user()->id;
         $stores = Store::where('user_id', $userId)->get();
