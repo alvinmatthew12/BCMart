@@ -30,6 +30,8 @@ Route::group(['namespace' => 'v1', 'prefix' => 'v1'], function(){
 
         Route::resource('product', 'ProductController')->except(['create', 'edit']);
         Route::put('product/updateBarcode/{id}', 'ProductController@updateBarcode');
+
+        Route::get('wallet', 'WalletController@getTopUp');
     });
 
     Route::group(['namespace' => 'Merchant', 'prefix' => 'merchant', 'middleware' => ['auth:api', 'isMerchant']], function () { 
@@ -43,6 +45,7 @@ Route::group(['namespace' => 'v1', 'prefix' => 'v1'], function(){
 
     Route::group(['namespace' => 'Member', 'prefix' => 'member', 'middleware' => ['auth:api']], function () { 
         Route::get('wallet', 'WalletController@index');
+        Route::get('wallet/topup', 'WalletController@getTopUps');
         Route::post('wallet/topup', 'WalletController@topUp');
     });
 });

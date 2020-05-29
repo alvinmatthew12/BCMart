@@ -32,6 +32,21 @@ class WalletController extends Controller
         ]);
     }
 
+    public function getTopUps()
+    {
+        $walletTopUps = WalletTopUp::with('wallet.user')
+            ->join('wallets', 'wallet_top_ups.wallet_id', '=', 'wallets.id')
+            ->join('users', 'wallets.user_id', '=', 'users.id')
+            ->where('user_id', auth()->user()->id)
+            ->get();
+        return response()->json([
+            'status' => 'ok',
+            'code' => 200,
+            'message' => 'Successfully get all stores',
+            'data' => $walletTopUps
+        ], 200);
+    }
+
     public function topUp(WalletRequest $request)
     {
         $data = $request->validated();
