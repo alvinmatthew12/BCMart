@@ -11,7 +11,7 @@ class Checkout extends Model
     ];
 
     protected $hidden = [
-        'updated_at'
+        'user_id','updated_at'
     ];
 
     public function user() {

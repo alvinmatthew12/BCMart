@@ -16,7 +16,11 @@ class CartController extends Controller
     public function index()
     {
         try {
-            $cart = Cart::with('product','product.store')->where('user_id', auth()->user()->id)->get();
+            $cart = Cart::with('product','product.store')
+                ->where([
+                    ['is_checkedout', '=', 0],
+                    ['user_id', '=', auth()->user()->id]
+                ])->get();
         }
         catch (Exception $e) {
             return response()->json([
