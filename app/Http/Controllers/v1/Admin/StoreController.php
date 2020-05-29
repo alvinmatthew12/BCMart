@@ -21,18 +21,6 @@ class StoreController extends Controller
         ], 200);
     }
 
-    public function getMyStore() 
-    {
-        $userId = auth()->user()->id;
-        $stores = Store::where('user_id', $userId)->get();
-        return response()->json([
-            'status' => 'ok',
-            'code' => 200,
-            'message' => 'Successfully get all stores',
-            'data' => $stores
-        ], 200);
-    }
-
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
