@@ -13,15 +13,15 @@ class WalletTableSeeder extends Seeder
     public function run()
     {
         Wallet::create([
-            "balance" => 1000000,
+            "balance" => 0,
             "user_id" => 1
         ]);
         Wallet::create([
-            "balance" => 1000000,
+            "balance" => 0,
             "user_id" => 2
         ]);
         Wallet::create([
-            "balance" => 1000000,
+            "balance" => 0,
             "user_id" => 3
         ]);
     }
