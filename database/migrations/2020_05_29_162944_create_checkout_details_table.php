@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransactionDetailsTable extends Migration
+class CreateCheckoutDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateTransactionDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transaction_details', function (Blueprint $table) {
+        Schema::create('checkout_details', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
             $table->decimal('price', 16, 2);
             $table->decimal('sub_total', 16, 2);
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('transaction_id');
+            $table->unsignedBigInteger('checkout_id');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('transaction_id')->references('id')->on('transactions');
+            $table->foreign('checkout_id')->references('id')->on('checkouts');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateTransactionDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaction_details');
+        Schema::dropIfExists('checkout_details');
     }
 }
