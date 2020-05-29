@@ -43,5 +43,6 @@ Route::group(['namespace' => 'v1', 'prefix' => 'v1'], function(){
 
     Route::group(['namespace' => 'Member', 'prefix' => 'member', 'middleware' => ['auth:api']], function () { 
         Route::get('wallet', 'WalletController@index');
+        Route::post('wallet/topup', 'WalletController@topUp');
     });
 });
