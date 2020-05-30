@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
+use App\Models\Wallet;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 
@@ -45,6 +46,10 @@ class AuthController extends Controller
         try {
             $data['password'] = bcrypt($data['password']);
             $register = User::create($data);
+            $wallet = Wallet::create([
+                'balance' => 0,
+                'user_id' => $register['id']
+            ]);
         }
         catch (Exception $e) {
             return response()->json([
