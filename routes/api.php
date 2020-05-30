@@ -57,5 +57,7 @@ Route::group(['namespace' => 'v1', 'prefix' => 'v1'], function(){
         Route::post('checkout', 'CheckoutController@checkout');
         Route::get('checkout', 'CheckoutController@index');
         Route::get('checkout/{id}', 'CheckoutController@show');
+
+        Route::get('product', 'ProductController@index');
     });
 });
