@@ -9,7 +9,7 @@ This system have 3 roles with different access to the system.
 * Login
     RequestUrl
     ```javascript
-        {{host}}/api/v1/login
+    {{host}}/api/v1/login
     ```
 * Register
 * Logout
