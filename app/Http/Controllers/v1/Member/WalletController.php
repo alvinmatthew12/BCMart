@@ -34,7 +34,7 @@ class WalletController extends Controller
 
     public function getTopUps()
     {
-        $walletTopUps = WalletTopUp::with('wallet.user')
+        $walletTopUps = WalletTopUp::select('wallet_top_ups.id','wallet_top_ups.balance','wallet_top_ups.bank_name','wallet_top_ups.account_name','wallet_top_ups.account_number','wallet_top_ups.created_at')
             ->join('wallets', 'wallet_top_ups.wallet_id', '=', 'wallets.id')
             ->join('users', 'wallets.user_id', '=', 'users.id')
             ->where('user_id', auth()->user()->id)
@@ -42,7 +42,7 @@ class WalletController extends Controller
         return response()->json([
             'status' => 'ok',
             'code' => 200,
-            'message' => 'Successfully get all stores',
+            'message' => 'Successfully get all wallet top ups',
             'data' => $walletTopUps
         ], 200);
     }
