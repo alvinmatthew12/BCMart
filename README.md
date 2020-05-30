@@ -5,5 +5,5 @@ This project is about the system call BCMart which is e-store with e-wallet paym
 # Documentation
 This system have 3 roles with different access to the system.
 
-## Admin
-### Store
+### Admin
+#### Store
