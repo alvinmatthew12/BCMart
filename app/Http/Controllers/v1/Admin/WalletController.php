@@ -12,6 +12,8 @@ use Exception;
 class WalletController extends Controller
 {
     public function getTopUp() {
+        // code
+        // code
         $walletTopUps = WalletTopUp::with('wallet.user')->get();
         return response()->json([
             'status' => 'ok',
