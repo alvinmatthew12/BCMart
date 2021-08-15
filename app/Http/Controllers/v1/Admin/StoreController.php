@@ -12,6 +12,7 @@ class StoreController extends Controller
 {
     public function index()
     {
+        // change something in store controller
         $stores = Store::with('user:id,name,email')->get();
         return response()->json([
             'status' => 'ok',
