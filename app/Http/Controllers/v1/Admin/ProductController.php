@@ -14,10 +14,6 @@ class ProductController extends Controller
     public function index()
     {
         // changes here to get all products
-        // comment bugs here
-        // bugs
-        // bugs
-        // bugs
         $products = Product::with('store:id,name')->get();
         return response()->json([
             'status' => 'ok',
